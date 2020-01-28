@@ -12,7 +12,7 @@ namespace ApiClientsTests
         public async System.Threading.Tasks.Task Test1Async()
         {
 
-            NasjonaltSkoleregisterCI target = new NasjonaltSkoleregisterCI();
+            NasjonaltSkoleregisterCI target = new NasjonaltSkoleregisterCI(new Nasjonalt.Skoleregister.Configuration.NasjonaltSkoleregisterConfig());
 
             List<Enhet> result = await target.GetAlleEnheterAsync();
 

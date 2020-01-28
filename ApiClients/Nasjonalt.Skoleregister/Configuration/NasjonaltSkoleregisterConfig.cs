@@ -6,6 +6,11 @@ namespace Nasjonalt.Skoleregister.Configuration
 {
     public class NasjonaltSkoleregisterConfig
     {
-        public string ApiBaseUrl { get; set; }
+        public string ApiBaseUrl { get; set; } = "https://data-nsr.udir.no/";
+
+        public Uri GetBaseAddress()
+        {
+            return new Uri(ApiBaseUrl);
+        }
     }
 }
