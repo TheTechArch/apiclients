@@ -5,3 +5,5 @@
 /ApiClients/.vs/ApiClients/v16
 /ApiClients/Nasjonalt.Skoleregister/obj
 /ApiClients/Nasjonalt.Skoleregister/bin/Debug/netcoreapp3.1
+/ApiClients/ApiClientsTests/bin/Debug/netcoreapp3.1
+/ApiClients/ApiClientsTests/obj
