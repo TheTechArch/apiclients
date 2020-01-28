@@ -16,6 +16,8 @@ namespace Nasjonalt.Skoleregister.Implementation
 
         private NasjonaltSkoleregisterConfig _apiConfig;
 
+        private HttpClient _apiClient;
+
         public NasjonaltSkoleregisterCI(NasjonaltSkoleregisterConfig apiConfig)
         {
             _apiConfig = apiConfig;
@@ -27,13 +29,10 @@ namespace Nasjonalt.Skoleregister.Implementation
             string apiUrl = $"enheter";
 
             List<Enhet> result = new List<Enhet>();
-
-            HttpClient client = new HttpClient() { BaseAddress = _apiConfig.GetBaseAddress() };
-
-            HttpResponseMessage respons = await client.GetAsync(apiUrl);
+           
+            HttpResponseMessage respons = await ApiClient.GetAsync(apiUrl);
 
             if (respons.StatusCode == System.Net.HttpStatusCode.OK)
-
             {
                 string responseData = respons.Content.ReadAsStringAsync().Result;
                 result = JsonConvert.DeserializeObject<List<Enhet>>(responseData);
@@ -55,6 +54,33 @@ namespace Nasjonalt.Skoleregister.Implementation
         public List<Enhet> GetEnheterByDate(DateTime date)
         {
             throw new NotImplementedException();
+        }
+
+
+        public HttpClient ApiClient
+
+        {
+            get
+            {
+                if (_apiClient != null)
+                {
+                    return _apiClient;
+                }
+
+                _apiClient = GetNewHttpClient(_apiConfig.ApiBaseUrl);
+
+                return _apiClient;
+            }
+        }
+
+        private HttpClient GetNewHttpClient(string apiEndpoint)
+        {
+            HttpClient httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(apiEndpoint)
+            };
+
+            return httpClient;
         }
     }
 }
